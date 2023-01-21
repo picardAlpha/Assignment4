@@ -1,8 +1,12 @@
 import sqlite3
 import atexit
+
+import DTOs
+import dbtools
 from dbtools import Dao
 
 
+# ARE THESE DTOS OR DAOS?
 # DTOs - Data Transfer Objects:
 class Employee(object):
     # TODO: implement
@@ -10,7 +14,7 @@ class Employee(object):
         self.id = id
         self.name = name
         self.salary = salary
-        self.branch = branche
+        self.branche = branche
 
 
 
@@ -56,9 +60,12 @@ class Repository(object):
     def __init__(self):
         self._conn = sqlite3.connect('bgumart.db')
         self._conn.text_factory = bytes
-        self.employees = Employee(self._conn)
-        self.suppliers = Supplier(self._conn)
-        self.products = Product(self._conn)
+        self.employees = Dao(Employee, self._conn)  # This initiates DAOs
+        self.suppliers = Dao(Supplier, self._conn)
+        self.products = Dao(Product, self._conn)
+        self.activities = Dao(Activitie, self._conn)
+        self.branches = Dao(Branche, self._conn)
+
         # TODO: complete
 
     def _close(self):
@@ -103,6 +110,8 @@ class Repository(object):
 
     def execute_command(self, script: str) -> list:
         return self._conn.cursor().execute(script).fetchall()
+
+
 
 
 # singleton
