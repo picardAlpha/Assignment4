@@ -121,7 +121,7 @@ class Repository(object):
         sales = 0
         for record in sales_records:
             if record[1] < 0:
-                sales = sales + abs(record[1])
+                sales = sales + abs(record[1])*repo.products.find(id=record[0])[0].price     # multiply by product price
 
         return sales
 
