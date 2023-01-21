@@ -51,14 +51,16 @@ def main(args: list[str]):
         for line in inputfile:
             splittedline: list[str] = line.strip().split(",")
             adders.get(splittedline[0])(splittedline[1:])
+            if splittedline[0] == 'B':
+                repo.branches.insert(Branche(splittedline[1], splittedline[2], splittedline[3]))
+            elif splittedline[0] == 'E':
+                repo.employees.insert(Employee(splittedline[1], splittedline[2], splittedline[3], splittedline[4]))
+            elif splittedline[0] == 'P':
+                repo.products.insert(Product(splittedline[1], splittedline[2], splittedline[3], splittedline[4]))
+            elif splittedline[0] == 'S':
+                repo.suppliers.insert(Supplier(splittedline[1], splittedline[2], splittedline[3]))
 
     # TODO : read the config.txt and create DTOs from it
-
-    repo.branches.insert(persistence.Branche(1,"Bash",0))
-    repo.employees.insert(persistence.Employee(1, "Adam",1000,3))  # TODO : When this happens we should update the number of employees in the branch!!
-
-
-
 
 
 if __name__ == '__main__':
