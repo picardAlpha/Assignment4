@@ -17,7 +17,6 @@ class Employee(object):
         self.branche = branche
 
 
-
 class Supplier(object):
     # TODO: implement
     def __init__(self, id, name, contact_information):
@@ -35,6 +34,7 @@ class Product(object):
         self.description = description
         self.price = price
         self.quantity = quantity
+
     pass
 
 
@@ -111,6 +111,19 @@ class Repository(object):
     def execute_command(self, script: str) -> list:
         return self._conn.cursor().execute(script).fetchall()
 
+    def updateProductsQuantity(self, productID, newQuantity):
+        statement = 'UPDATE products SET quantity={} WHERE id={}'.format(newQuantity, productID)
+        self._conn.execute(statement)
+
+    def getAllSalesByEmployeeID(self, employeeID):
+        statement = 'SELECT * FROM activities WHERE activator_id = {}'.format(employeeID)
+        sales_records =  self._conn.cursor().execute(statement).fetchall()
+        sales = 0
+        for record in sales_records:
+            if record[1] < 0:
+                sales = sales + abs(record[1])
+
+        return sales
 
 
 

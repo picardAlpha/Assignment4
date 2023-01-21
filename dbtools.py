@@ -66,3 +66,5 @@ class Dao(object):
                .format(self._table_name,' AND '.join([col + '=?' for col in column_names]))
  
         self._conn.cursor().execute(stmt, params)
+
+
