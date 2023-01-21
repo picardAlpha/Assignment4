@@ -60,7 +60,6 @@ def main(args: list[str]):
             elif splittedline[0] == 'S':
                 repo.suppliers.insert(Supplier(splittedline[1], splittedline[2], splittedline[3]))
 
-    # TODO : read the config.txt and create DTOs from it
 
 
 if __name__ == '__main__':
