@@ -125,7 +125,13 @@ class Repository(object):
 
         return sales
 
+    def getEmployeesOrderedByName(self):
+        statement = 'SELECT * FROM employees ORDER BY name'
+        return self._conn.cursor().execute(statement).fetchall()
 
+    def getActivitiesOrderedByDate(self):
+        statement = 'SELECT * FROM activities ORDER BY date ASC'
+        return self._conn.cursor().execute(statement).fetchall()
 
 # singleton
 repo = Repository()
